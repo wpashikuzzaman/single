@@ -1,0 +1,202 @@
+<?php
+/**
+ * The Template Name: Single Job Post
+ */
+
+get_header(); ?>
+
+<?php do_action('ocean_before_content_wrap'); ?>
+
+<div id="content-wrap" class="container clr">
+
+    <?php do_action('ocean_before_primary'); ?>
+
+    <div id="primary" class="content-area clr">
+
+        <?php do_action('ocean_before_content'); ?>
+
+        <div id="content" class="site-content clr">
+
+            <?php do_action('ocean_before_content_inner'); ?>
+
+            <?php
+            $args = array(
+                'post_type' => 'jobs',
+                'posts_per_page' => -1,
+            );
+            $alphadot_jobs_post = new WP_Query($args);
+            if ($alphadot_jobs_post->have_posts()) :
+                while ($alphadot_jobs_post->have_posts()) : $alphadot_jobs_post->the_post();
+
+                    $jobTitle = get_field('title');
+                    $jobLocation = get_field('location');
+                    $jobType = get_field('job_type');
+                    $jobVacancy = get_field('vacancy');
+                    $jobExperience = get_field('experience');
+                    $jobSalaryRange = get_field('salary_range');
+                    $jobWorkingHours = get_field('working_hours');
+                    $jobWorkingDays = get_field('working_days');
+                    $jobDeadline = get_field('deadline');
+                    $jobDescription = get_field('description');
+                    $jobResponsibilities = get_field('responsibility'); // Corrected variable name
+                    $jobRequirements = get_field('requirement');
+                    $jobEducationalRequirements = get_field('educational_requirements');
+                    $jobOtherBenefits = get_field('other_benefits');
+                    $jobLocationMaps = get_field('location_map');
+                    ?>
+
+                    <div class="ad-jobs-single-main-wrapper">
+                        <div class="ad-jobs-single-main-content">
+                            <div class="ad-jobs-single-content-inner">
+                                <div class="ad-jobs-single-content-wrapper">
+                                    <div class="job-details">
+                                        <h3 class="job-details-title">Description</h3>
+                                        <div class="job-details-content">
+                                            <?php echo $jobDescription; ?>
+                                        </div>
+                                    </div>
+                                    <div class="job-details">
+                                        <h3 class="job-details-title">Responsibilities</h3>
+                                        <div class="job-details-content">
+                                            <?php echo $jobResponsibilities; ?> <!-- Corrected variable name -->
+                                        </div>
+                                    </div>
+                                    <div class="job-details">
+                                        <h3 class="job-details-title">Requirements</h3>
+                                        <div class="job-details-content">
+                                            <?php echo $jobRequirements; ?>
+                                        </div>
+                                    </div>
+                                    <div class="job-details">
+                                        <h3 class="job-details-title">Educational Requirements</h3>
+                                        <div class="job-details-content">
+                                            <?php echo $jobEducationalRequirements; ?>
+                                        </div>
+                                    </div>
+                                    <div class="job-details">
+                                        <h3 class="job-details-title">Other Benefits</h3>
+                                        <div class="job-details-content">
+                                            <?php echo $jobOtherBenefits; ?>
+                                        </div>
+                                    </div>
+                                    <div class="job-details">
+                                        <h3 class="job-details-title">Location Map</h3>
+                                        <div class="job-details-content">
+                                            <?php echo $jobLocationMaps; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="details-apply-btn">
+                                    <?php
+                                    if ($jobDeadline === date('Y-m-d')) : // Corrected date comparison
+                                        echo '<a class="button job-apply" href="" data-wpel-link="internal">Apply</a>';
+                                    else :
+                                        echo '<a class="button job-expired" href="" data-wpel-link="internal">Expired</a>';
+                                    endif;
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ad-jobs-single-main-sidebar">
+                            <div class="ad-jobs-single-sidebar-wrapper">
+                                <div class="ad-jobs-single-sidebar-inner">
+                                    <h3 class="job-details-sidebar-title"><span>Job Overview</span></h3>
+                                    <div class="ad-jobs-single-sidebar-inner-inner">
+                                        <div class="details-item">
+                                            <div class="details-icon"><i class="fas fa-info-circle"></i></div>
+                                            <div class="details-text">
+                                                <p class="details-title">Title</p>
+                                                <span class="details-value"><?php echo $jobTitle; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="details-item">
+                                            <div class="details-icon"><i class="fas fa-location-arrow"></i></div>
+                                            <div class="details-text">
+                                                <p class="details-title">Location</p>
+                                                <span class="details-value"><?php echo $jobLocation; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="details-item">
+                                            <div class="details-icon"><i class="fas fa-briefcase"></i></div>
+                                            <div class="details-text">
+                                                <p class="details-title">Job Type</p>
+                                                <span class="details-value"><?php echo $jobType; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="details-item">
+                                            <div class="details-icon"><i class="fas fa-user-tie"></i></div>
+                                            <div class="details-text vacancy">
+                                                <p class="details-title">Vacancy: </p>
+                                                <span class="details-value"><?php echo $jobVacancy; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="details-item">
+                                            <div class="details-icon"><i class="fas fa-star"></i></div>
+                                            <div class="details-text">
+                                                <p class="details-title">Experience</p>
+                                                <span class="details-value"><?php echo $jobExperience; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="details-item">
+                                            <div class="details-icon"><i class="far fa-money-bill-alt"></i></div>
+                                            <div class="details-text">
+                                                <p class="details-title">Salary Range</p>
+                                                <span class="details-value"><?php echo $jobSalaryRange; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="details-item">
+                                            <div class="details-icon"><i class="fas fa-clock"></i></div>
+                                            <div class="details-text">
+                                                <p class="details-title">Working Hours</p>
+                                                <span class="details-value"><?php echo $jobWorkingHours; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="details-item">
+                                            <div class="details-icon"><i class="far fa-calendar-alt"></i></div>
+                                            <div class="details-text">
+                                                <p class="details-title">Working Days</p>
+                                                <span class="details-value"><?php echo $jobWorkingDays; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="details-item">
+                                            <div class="details-icon"><i class="far fa-calendar-times"></i></div>
+                                            <div class="details-text">
+                                                <p class="details-title">Deadline</p>
+                                                <span class="details-value"><?php echo $jobDeadline; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="apply-btn">
+                                            <a class="button job-expired" href="" data-wpel-link="internal">Expired</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php the_content(); ?>
+                    </div>
+
+                <?php
+                endwhile;
+                wp_reset_postdata();
+            else :
+                // No job post found
+                echo 'Job not found.';
+            endif;
+            ?>
+
+            <?php do_action('ocean_after_content_inner'); ?>
+
+        </div><!-- #content -->
+
+        <?php do_action('ocean_after_content'); ?>
+
+    </div><!-- #primary -->
+
+    <?php do_action('ocean_after_primary'); ?>
+
+</div><!-- #content-wrap -->
+
+<?php do_action('ocean_after_content_wrap'); ?>
+
+<?php get_footer(); ?>
